@@ -24,11 +24,11 @@ public class FriendsMapper extends Mapper<Object, Text, FriendsPair, String> {
 			fp.setFirstPerson(person);
 			fp.setSecondPerson(friends[i].trim());
 			for (int j = 0; j < set.length; ++j) {
-				if(!set[j].equals(friends[i])) {
+				if (!set[j].equals(friends[i])) {
 					context.write(fp, set[j]);
 				}
 			}
 		}
 	}
-	
+
 }
