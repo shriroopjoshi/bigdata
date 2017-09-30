@@ -9,11 +9,11 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 import classes.FriendsPair;
 
-public class FriendsReducer extends Reducer<FriendsPair, ArrayWritable, FriendsPair, ArrayWritable> {
+public class FriendsReducer extends Reducer<FriendsPair, String, FriendsPair, ArrayWritable> {
 
 	@Override
-	protected void reduce(FriendsPair pair, Iterable<ArrayWritable> friendList,
-			Reducer<FriendsPair, ArrayWritable, FriendsPair, ArrayWritable>.Context output)
+	protected void reduce(FriendsPair pair, Iterable<String> friendList,
+			Reducer<FriendsPair, String, FriendsPair, ArrayWritable>.Context output)
 			throws IOException, InterruptedException {
 		ArrayList<String> arr = new ArrayList<>();
 		for (Iterator iterator = friendList.iterator(); iterator.hasNext();) {
