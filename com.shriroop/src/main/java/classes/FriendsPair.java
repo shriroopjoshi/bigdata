@@ -17,8 +17,17 @@ public class FriendsPair implements Writable, WritableComparable<FriendsPair> {
 		if(firstPerson.compareTo(friend.firstPerson) == 0
 				&& secondPerson.compareTo(friend.secondPerson) == 0)
 			return 0;
-		else
-			return 1;
+		else if(firstPerson.compareTo(friend.secondPerson) == 0
+				&& secondPerson.compareTo(friend.firstPerson) == 0)
+			return 0;
+		else {
+			if(firstPerson.compareTo(friend.firstPerson) < 0
+					|| (firstPerson.compareTo(friend.firstPerson) == 0
+					&& secondPerson.compareTo(friend.secondPerson) < 0))
+				return -1;
+			else
+				return 1;
+		}
 	}
 	
 	@Override
@@ -48,7 +57,6 @@ public class FriendsPair implements Writable, WritableComparable<FriendsPair> {
 	public String getSecondPerson() {
 		return this.secondPerson;
 	}
-
 	
 	@Override
 	public int hashCode() {
@@ -58,7 +66,6 @@ public class FriendsPair implements Writable, WritableComparable<FriendsPair> {
 		result = prime * result + ((secondPerson == null) ? 0 : secondPerson.hashCode());
 		return result;
 	}
-
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -69,17 +76,23 @@ public class FriendsPair implements Writable, WritableComparable<FriendsPair> {
 		if (getClass() != obj.getClass())
 			return false;
 		FriendsPair other = (FriendsPair) obj;
-		if (firstPerson == null) {
-			if (other.firstPerson != null)
+		if(firstPerson.equals(other.firstPerson)) {
+			if(secondPerson.equals(other.secondPerson))
+				return true;
+			else
 				return false;
-		} else if (!firstPerson.equals(other.firstPerson))
-			return false;
-		if (secondPerson == null) {
-			if (other.secondPerson != null)
+		} else if(firstPerson.equals(other.secondPerson)) {
+			if(secondPerson.equals(other.firstPerson))
+				return true;
+			else
 				return false;
-		} else if (!secondPerson.equals(other.secondPerson))
+		} else
 			return false;
-		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "[" + firstPerson + ", " + secondPerson + "]";
 	}
 
 	

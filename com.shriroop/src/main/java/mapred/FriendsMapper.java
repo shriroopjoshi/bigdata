@@ -7,10 +7,10 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 import classes.FriendsPair;
 
-public class FriendsMapper extends Mapper<Object, Text, FriendsPair, String> {
+public class FriendsMapper extends Mapper<Object, Text, FriendsPair, Text> {
 
 	@Override
-	protected void map(Object key, Text value, Mapper<Object, Text, FriendsPair, String>.Context context)
+	protected void map(Object key, Text value, Mapper<Object, Text, FriendsPair, Text>.Context context)
 			throws IOException, InterruptedException {
 		String[] fields = value.toString().split("\t");
 		String person = fields[0].trim();
@@ -25,7 +25,7 @@ public class FriendsMapper extends Mapper<Object, Text, FriendsPair, String> {
 			fp.setSecondPerson(friends[i].trim());
 			for (int j = 0; j < set.length; ++j) {
 				if (!set[j].equals(friends[i])) {
-					context.write(fp, set[j]);
+					context.write(fp, new Text(set[j]));
 				}
 			}
 		}
